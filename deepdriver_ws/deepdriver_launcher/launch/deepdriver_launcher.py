@@ -112,19 +112,17 @@ def generate_launch_description():
         name="model_optimizer_node",
     )
     rplidar_node = Node(
-        package="rplidar_ros",
-        namespace="rplidar_ros",
-        executable="rplidarNode",
-        name="rplidarNode",
-        parameters=[
-            {
-                "serial_port": "/dev/ttyUSB0",
-                "serial_baudrate": 115200,
-                "frame_id": "laser",
-                "inverted": False,
-                "angle_compensate": True,
-            }
-        ],
+        package='rplidar_ros2',
+        namespace='rplidar_ros',
+        executable='rplidar_scan_publisher',
+        name='rplidar_scan_publisher',
+        parameters=[{
+                'serial_port': '/dev/ttyUSB0',
+                'serial_baudrate': 115200,
+                'frame_id': 'laser',
+                'inverted': False,
+                'angle_compensate': True,
+            }]
     )
     sensor_fusion_node = Node(
         package="sensor_fusion_pkg",

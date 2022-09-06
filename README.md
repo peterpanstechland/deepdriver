@@ -68,7 +68,7 @@ Open up a terminal on the DeepRacer device and run the following commands as roo
 
 1. Clone the entire DeepDriver project on the DeepRacer device.
 
-        git clone https://github.com/jochem725/deepdriver.git
+        git clone https://github.com/peterpanstechland/deepdriver.git
         cd ~/deepracer_ws/deepdriver/deepdriver_ws/
 
 1. Clone the async_web_server_cpp, web_video_server and rplidar_ros dependency packages on the DeepRacer device:
@@ -157,14 +157,16 @@ The deepdriver_launcher.py included in this package is the main launcher file th
                 namespace="traffic_sign_pkg",
                 executable="traffic_sign_node",
                 name="traffic_sign_node",
-                parameters=[{"PUBLISH_DISPLAY_OUTPUT": True}],
+                parameters=[{"PUBLISH_DISPLAY_OUTPUT": publish_display_output}],
             )
             object_detection_node = Node(
                 package="object_detection_pkg",
                 namespace="object_detection_pkg",
                 executable="object_detection_node",
                 name="object_detection_node",
-                parameters=[{"DEVICE": "CPU", "PUBLISH_DISPLAY_OUTPUT": True}],
+                parameters=[
+                    {"DEVICE": "CPU", "PUBLISH_DISPLAY_OUTPUT": publish_display_output}
+                ],
             )
             deepdriver_navigation_node = Node(
                 package="deepdriver_navigation_pkg",
@@ -183,7 +185,7 @@ The deepdriver_launcher.py included in this package is the main launcher file th
                 namespace="ctrl_pkg",
                 executable="ctrl_node",
                 name="ctrl_node",
-            )
+           )
             deepracer_navigation_node = Node(
                 package="deepracer_navigation_pkg",
                 namespace="deepracer_navigation_pkg",
@@ -239,19 +241,17 @@ The deepdriver_launcher.py included in this package is the main launcher file th
                 name="model_optimizer_node",
             )
             rplidar_node = Node(
-                package="rplidar_ros",
-                namespace="rplidar_ros",
-                executable="rplidarNode",
-                name="rplidarNode",
-                parameters=[
-                    {
-                        "serial_port": "/dev/ttyUSB0",
-                        "serial_baudrate": 115200,
-                        "frame_id": "laser",
-                        "inverted": False,
-                        "angle_compensate": True,
-                    }
-                ],
+                package='rplidar_ros2',
+                namespace='rplidar_ros',
+                executable='rplidar_scan_publisher',
+                name='rplidar_scan_publisher',
+                parameters=[{
+                        'serial_port': '/dev/ttyUSB0',
+                        'serial_baudrate': 115200,
+                        'frame_id': 'laser',
+                        'inverted': False,
+                        'angle_compensate': True,
+                    }]
             )
             sensor_fusion_node = Node(
                 package="sensor_fusion_pkg",

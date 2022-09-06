@@ -15,4 +15,4 @@ git checkout ros2
 echo ""
 echo "Cloning the rplidar_ros package"
 cd ~/deepracer_ws/deepdriver/deepdriver_ws
-git clone https://github.com/youngday/rplidar_ros2.git
+https://github.com/peterpanstechland/deepdriver.git
